@@ -14,6 +14,7 @@ class App extends React.Component {
 		};
 		this.addItem = this.addItem.bind(this);
 		this.handleInput = this.handleInput.bind(this);
+		this.deleteItem = this.deleteItem.bind(this);
 		let inputElement = React.createRef()
 	}
 
@@ -29,6 +30,15 @@ class App extends React.Component {
 	      })
 	    }
 	}
+
+	deleteItem = key => {
+	    const filteredItems = this.state.items.filter(item => {
+	      return item.key !== key
+	    })
+	    this.setState({
+	      items: filteredItems,
+	    })
+	  }
 
 	handleInput(e) {
 		let itemText = e.target.value;
@@ -47,7 +57,10 @@ class App extends React.Component {
 		          	handleInput={this.handleInput}
 		          	currentItem={this.state.currentItem}
 		        />
-		        <TodoItems entries = {this.state.items} />
+		        <TodoItems 
+		        	entries = {this.state.items} 
+		        	deleteItem = {this.deleteItem}
+		        />
 			</div>
 		);
 	}
